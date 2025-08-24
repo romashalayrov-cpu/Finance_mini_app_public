@@ -1,27 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Finance Bot Mini App</title>
-    <link rel="stylesheet" href="index.css" />
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- Добавляем Babel для компиляции JSX/TSX в браузере -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.1.1",
-    "react/": "https://esm.sh/react@^19.1.1/",
-    "react-dom/client": "https://esm.sh/react-dom@^19.1.1/client",
-    "react-dom/": "https://esm.sh/react-dom@^19.1.1/"
-  }
-}
-</script>
+    <link rel="stylesheet" href="styles.css">
 </head>
-  <body>
-    <div id="root"></div>
-    <!-- Указываем Babel, что нужно использовать пресеты для React и TypeScript -->
-    <script type="text/babel" data-presets="react,typescript" data-type="module" src="index.tsx"></script>
-  </body>
+<body>
+    <div id="app">
+        <header class="header">
+            <h1>🤖 Бот Управления</h1>
+            <div class="user-info" id="userInfo">
+                <span id="userName">Загрузка...</span>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="dashboard">
+                <div class="card">
+                    <h3>📊 Статистика</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalUsers">0</span>
+                            <span class="stat-label">Пользователей</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="activeUsers">0</span>
+                            <span class="stat-label">Активных</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>⚡ Быстрые действия</h3>
+                    <div class="actions">
+                        <button class="action-btn" onclick="sendMessage()">
+                            📨 Отправить сообщение
+                        </button>
+                        <button class="action-btn" onclick="showUsers()">
+                            👥 Список пользователей
+                        </button>
+                        <button class="action-btn" onclick="showSettings()">
+                            ⚙️ Настройки
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📈 Активность</h3>
+                    <div class="activity-chart" id="activityChart">
+                        <canvas id="chartCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Модальные окна -->
+        <div id="messageModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>📨 Отправить сообщение</h3>
+                <textarea id="messageText" placeholder="Введите текст сообщения..."></textarea>
+                <div class="modal-actions">
+                    <button onclick="sendBroadcastMessage()" class="btn-primary">Отправить всем</button>
+                    <button onclick="closeModal('messageModal')" class="btn-secondary">Отмена</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="usersModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>👥 Пользователи</h3>
+                <div class="users-list" id="usersList">
+                    <div class="loading">Загрузка пользователей...</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>⚙️ Настройки</h3>
+                <div class="settings">
+                    <div class="setting-item">
+                        <label>Автоответы</label>
+                        <input type="checkbox" id="autoReply" />
+                    </div>
+                    <div class="setting-item">
+                        <label>Уведомления</label>
+                        <input type="checkbox" id="notifications" />
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button onclick="saveSettings()" class="btn-primary">Сохранить</button>
+                    <button onclick="closeModal('settingsModal')" class="btn-secondary">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
 </html>
