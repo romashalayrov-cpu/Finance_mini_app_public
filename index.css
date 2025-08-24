@@ -1,0 +1,404 @@
+:root {
+  --bg-color: #121212; /* Чуть темнее фон для лучшего контраста */
+  --primary-text-color: #e0e0e0;
+  --secondary-text-color: #a9a9a9;
+  --card-bg-color: #1e1e1e;
+  --accent-green: #34c759;
+  --accent-red: #ff3b30;
+  --accent-blue: #007aff;
+  --button-bg-color: #2c2c2e;
+  --button-hover-bg-color: #3a3a3c;
+  --border-color: #38383a;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--primary-text-color);
+  overscroll-behavior-y: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  padding: 20px 20px 100px 20px; /* Добавили отступ снизу для TabBar */
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* --- Dashboard Screen --- */
+
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.balance-card {
+  background-color: var(--card-bg-color);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+
+.balance-card .label {
+  font-size: 16px;
+  color: var(--secondary-text-color);
+  margin-bottom: 8px;
+}
+
+.balance-card .amount {
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--primary-text-color);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.summary-card {
+  background-color: var(--card-bg-color);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.summary-card .label {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+}
+
+.summary-card .amount {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.summary-card.income .amount {
+  color: var(--accent-green);
+}
+
+.summary-card.expense .amount {
+  color: var(--accent-red);
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.action-button {
+  background-color: var(--button-bg-color);
+  color: var(--primary-text-color);
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.action-button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+.action-button:active {
+  transform: scale(0.98);
+}
+
+.action-button span {
+  font-size: 24px;
+}
+
+/* --- Tab Bar --- */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  z-index: 1000;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  color: var(--secondary-text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  flex: 1; /* Make buttons share space equally */
+}
+
+.tab-button .icon {
+  font-size: 24px;
+}
+
+.tab-button.active {
+  color: var(--accent-blue);
+}
+
+/* --- Profile Screen --- */
+.profile-card {
+  background-color: var(--card-bg-color);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid var(--border-color);
+}
+.profile-card .label {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+}
+.profile-card .status {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent-green);
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.tariffs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tariff-card {
+  background-color: var(--card-bg-color);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.tariff-card.selected {
+  border-color: var(--accent-blue);
+}
+
+.tariff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tariff-header .name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.tariff-header .price {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.tariff-description {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+  margin-top: 4px;
+}
+
+.payment-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;
+}
+
+.tariff-card.selected .payment-details {
+  max-height: 500px; /* Adjust as needed */
+  margin-top: 16px;
+}
+
+.payment-method {
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 12px;
+}
+.payment-method:first-child {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+.payment-method .name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--secondary-text-color);
+  margin-bottom: 8px;
+}
+.payment-info {
+  background-color: var(--bg-color);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'SF Mono', 'Menlo', 'monospace';
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.confirm-payment-btn {
+  width: 100%;
+  background-color: var(--accent-blue);
+  color: white;
+  margin-top: 16px;
+  padding: 14px;
+}
+
+/* --- History Screen --- */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.history-item {
+  background-color: var(--card-bg-color);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.history-item .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--button-bg-color);
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+.history-item .details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.history-item .description {
+    font-size: 16px;
+    font-weight: 500;
+}
+.history-item .category {
+    font-size: 13px;
+    color: var(--secondary-text-color);
+}
+.history-item .amount {
+    text-align: right;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+}
+.history-item .amount.income { color: var(--accent-green); }
+.history-item .amount.expense { color: var(--accent-red); }
+.history-item .amount .date {
+    font-size: 12px;
+    color: var(--secondary-text-color);
+    font-weight: 400;
+}
+.empty-state {
+    text-align: center;
+    color: var(--secondary-text-color);
+    padding: 40px 0;
+}
+
+/* --- Add Transaction Modal --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+.modal-content {
+  background-color: var(--card-bg-color);
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  padding-bottom: 40px;
+  border-radius: 20px 20px 0 0;
+  box-sizing: border-box;
+  animation: slideUp 0.4s ease;
+}
+.modal-content h2 {
+    text-align: center;
+    margin-top: 0;
+}
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.form-input {
+    background-color: var(--button-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px;
+    color: var(--primary-text-color);
+    width: 100%;
+    box-sizing: border-box;
+}
+.form-input::placeholder {
+    color: var(--secondary-text-color);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
