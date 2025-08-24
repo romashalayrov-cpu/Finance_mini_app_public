@@ -6,20 +6,22 @@
     <title>Finance Bot Mini App</title>
     <link rel="stylesheet" href="index.css" />
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Добавляем Babel для компиляции JSX/TSX в браузере -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.1.1/",
     "react": "https://esm.sh/react@^19.1.1",
+    "react/": "https://esm.sh/react@^19.1.1/",
+    "react-dom/client": "https://esm.sh/react-dom@^19.1.1/client",
     "react-dom/": "https://esm.sh/react-dom@^19.1.1/"
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="index.tsx"></script>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <!-- Указываем Babel, что нужно использовать пресеты для React и TypeScript -->
+    <script type="text/babel" data-presets="react,typescript" data-type="module" src="index.tsx"></script>
+  </body>
 </html>
